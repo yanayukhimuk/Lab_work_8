@@ -1,14 +1,11 @@
-#include <Windows.h>
 #include "Info.h"
 #include "Func.h"
-
-#define EXIT 0
-using namespace std;
+#include <Windows.h>
 
 int userMenu()
 {
 	system("cls");
-	std::cout << "Выберите действие: \n"
+	cout << "Выберите действие: \n"
 		<< "1. загрузить данные из файла\n"
 		<< "2. вывод данных на экран\n"
 		<< "3. добавление данных\n"
@@ -21,65 +18,53 @@ int userMenu()
 		<< "> \n";
 
 	int userChoice{ -1 };
-	std::cin >> userChoice;
-	std::cout << std::endl;
+	cin >> userChoice;
+	system("cls");
 	return userChoice;
-} 
-
-
+}
 
 int main() {
-	SetConsoleCP(1251); 
+	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-    string fileName = "LABA.txt";
-	//OpenFile();
-	int menuState; 
+	string fileName = "LABA.txt";
+	vector<Data> people;
 
-	std::vector<Data> people;
-	
-
-	do {
-		userMenu();
-		cin >> menuState;
-		system("cls");
-
-		switch (menuState) {
+	while (true) {
+		switch (userMenu()) {
 		case 0:
-			exit(EXIT);
+			return 0;
 		case 1:
 			dataLoad(people, fileName);
 			break;
 		case 2:
-			dataInput(people);
+			dataOutput(people);
 			break;
 		case 3:
 			dataAppend(people, fileName);
-			people.clear();
-			dataLoad(people, fileName);
 			break;
 		case 4:
-			dataSortSurname(people);
+			sortDataBySurname(people);
 			break;
 		case 5:
-			dataSortAge(people);
+			sortDataByAge(people);
 			break;
 		case 6:
 			int givenMonth;
 			cout << "Введите месяц: ";
 			cin >> givenMonth;
-			PeopleMonth(people, givenMonth);
+			printPeopleWithBirthMonth(people, givenMonth);
 			break;
 		case 7:
-			TheOldest(people);
+			printOldestOf(people);
 			break;
 		case 8:
 			char givenLetter;
 			cout << "Введите символ: ";
 			cin >> givenLetter;
-			SameLetter(people, givenLetter);
+			printGroupedBy(people, givenLetter);
 			break;
 		default:
 			cout << "Введите корректное число" << endl;
 		}
-	} while (menuState != EXIT);
+	}
 }

@@ -5,39 +5,38 @@
 #include <algorithm>
 #include <vector>
 #include <filesystem>
-
+using namespace std;
 struct PersonalData {
-	std::string Name;
-	std::string Surname; 
-	std::string Patronymic;
+	string Name;
+	string Surname;
+	string Patronymic;
 };
 
 struct DateOfBirth {
 	int day;
 	int month;
 	int year;
+	friend bool operator < (const DateOfBirth d1, const DateOfBirth d2);
 };
 
 class Data {
-protected: 
 	PersonalData personal_data;
 	DateOfBirth date_of_birth;
-	std::string gender;
-
+	string gender;
 public:
 	Data();
-	Data(PersonalData personal_data, DateOfBirth date_of_birth, std::string gender);
+	Data(PersonalData personal_data, DateOfBirth date_of_birth, string gender);
 
-	PersonalData getPersonalData(){
+	PersonalData getPersonalData() {
 		return personal_data;
 	}
-	DateOfBirth getDateOfBirth(){
+	DateOfBirth getDateOfBirth() {
 		return date_of_birth;
 	}
-	std::string getgender() {
+	string getgender() {
 		return gender;
 	}
 
-	friend std::ostream& operator << (std::ostream& os, const Data d);
+	friend ostream& operator << (ostream& os, const Data d);
 	Data& operator=(Data d);
 };
